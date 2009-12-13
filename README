@@ -9,3 +9,7 @@ Usage:
 
 num-balls is the number of balls that you want to bounce. The 
 default is to bounce 1 ball.
+
+Note that for now, the terminal size is assumed to be 80x25. The
+dimensions can be configured in the source file. Eventually 
+dynamic setting of the terminal size may be implemented. 
