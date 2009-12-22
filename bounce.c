@@ -34,13 +34,9 @@
 #define BALL_SPEED 1
 
 
-/*
- * All the data we need to keep track of the position and direction of travel
- * of a single ball.
- */
 typedef struct {
     int xpos;  /* Horizontal position of the ball. */
-    int xdir;  /* Horizontal direction of the ball (either +1 or -1). */
+    int xdir;  /* Horizontal direction (+1 == right, -1 == left). */
     int ypos;  /* Vertical position. */
     int ydir;  /* Vertical direction (+1 == down, -1 == up). */
     char printable;  /* Char to use when drawing the ball. */
@@ -56,18 +52,12 @@ typedef struct {
 } Box;
 
 
-/*
- * Return the maximum value of a and b.
- */
 int max(int a, int b)
 {
     return a > b ? a : b;
 }
 
 
-/*
- * Return the minimum value of a and b.
- */
 int min(int a, int b)
 {
     return a < b ? a : b;
@@ -87,9 +77,7 @@ int min(int a, int b)
 void init_box(Box* box)
 {
     int i, j;
-    /* For each row of the box... */
     for (i = 0; i < HEIGHT; i++) {
-        /* initialize each column of the box. */
         for (j = 0; j < WIDTH; j++) {
             if (i == 0 || i == HEIGHT - 1)
                 box->cells[i][j] = HWALL;
@@ -98,7 +86,7 @@ void init_box(Box* box)
             else
                 box->cells[i][j] = EMPTY_CELL;
         }
-        box->cells[i][WIDTH] = '\0'; /* NUL terminate the string. */
+        box->cells[i][WIDTH] = '\0';
     }
 }
 
@@ -109,11 +97,6 @@ void init_box(Box* box)
 void draw_scene(const Box* box)
 {
     int i;
-
-    /* 
-     * Since the box is an array of strings, we can simply loop over the array
-     * and print the strings that represent each row of the box.
-     */
     for (i = 0; i < HEIGHT; i++)
         printf("%s\n", box->cells[i]);
 }
@@ -150,10 +133,7 @@ void move_ball(Ball* ball, Box* bounds)
 /* Pause the program for the given number of milliseconds. */
 void delay(long milliseconds)
 {
-    /* 
-     * usleep is only available in Linux and Mac OS X (i.e. this won't 
-     * work in Windows).
-     */
+    /* This won't work in Windows; would use Sleep() instead. */
     usleep(milliseconds * 1000);
 }
 
@@ -161,11 +141,11 @@ void delay(long milliseconds)
 int main(int argc, char* argv[])
 {
     Box scene;              /* The box that all balls will bounce inside. */
-    Ball balls[MAX_BALLS];  /* An array of balls to bounce. */
+    Ball balls[MAX_BALLS];
     int balls_len = 1;      /* The number of balls we will actually use. */
     int i;
 
-    /* Check the arguments that were given to the program. */
+    /* Did the user specify the number of balls to use? */
     if (argc > 1) {
         balls_len = atoi(argv[1]);
         if (balls_len <= 0)
@@ -174,13 +154,7 @@ int main(int argc, char* argv[])
             balls_len = MAX_BALLS;
     }
 
-    /*
-     * Seed the function random(). This ensures that random gives us a unique
-     * sequence of random numbers each time we run the program.
-     */
     srandom(time(0));
-
-    /* Randomly initialize all the balls. */
     for (i = 0; i < balls_len; i++) {
         balls[i].xpos = random() % MAX_XPOS + 1;
         balls[i].xdir = random() % 2 == 0 ? 1 : -1;
@@ -191,7 +165,6 @@ int main(int argc, char* argv[])
 
     init_box(&scene);
 
-    /* The main loop. It never ends! */
     while (1) {
         draw_scene(&scene);
 
@@ -199,8 +172,8 @@ int main(int argc, char* argv[])
         for (i = 0; i < balls_len; i++)
             move_ball(&balls[i], &scene);
 
-        /* The delay allows us to actually see what's going on. */
-        delay(66); /* A delay of 66 will give us about 15 frames per second. */
+        /* A delay of 66 will give us about 15 frames per second. */
+        delay(66);
     }
     return 0;
 }
