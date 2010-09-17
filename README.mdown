@@ -2,14 +2,16 @@ Bounce
 ======
 
 Compiling:
-    $ gcc -Wall -pedantic bounce.c -o bounce
+    `$ gcc -Wall -pedantic bounce.c -o bounce`
 
 Usage:
-    $ ./bounce [num-balls]
+    `$ ./bounce [num-balls]`
 
-num-balls is the number of balls that you want to bounce. The 
-default is to bounce 1 ball.
+`num-balls` is the number of balls that you want in the scene. The default is to bounce 1 ball.
 
-Note that for now, the terminal size is assumed to be 80x25. The
-dimensions can be configured in the source file. Eventually 
-dynamic setting of the terminal size may be implemented. 
+Note that for now, the terminal size is assumed to be 80x25. The dimensions can be configured in the source file. Eventually dynamic setting of the terminal size may be implemented. 
+
+About
+-----
+
+This program was originally created as a demonstration for first year computer science students. It is intended to demonstrate some of the more advanced features of C. Where _advanced_ is relative to the assignments and examples that were part of the standard course.
