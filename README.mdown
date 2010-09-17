@@ -2,10 +2,10 @@ Bounce
 ======
 
 Compiling:
-    `$ gcc -Wall -pedantic bounce.c -o bounce`
+    $ gcc -Wall -pedantic bounce.c -o bounce
 
 Usage:
-    `$ ./bounce [num-balls]`
+    $ ./bounce [num-balls]
 
 `num-balls` is the number of balls that you want in the scene. The default is to bounce 1 ball.
 
