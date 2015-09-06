@@ -2,7 +2,10 @@ Bounce
 ======
 
 Compiling:
-    $ gcc -Wall -pedantic bounce.c -o bounce
+    $ make
+
+Remove the generated artifacts:
+    $ make clean
 
 Usage:
     $ ./bounce [num-balls]

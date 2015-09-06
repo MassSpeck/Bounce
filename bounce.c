@@ -19,7 +19,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include <unistd.h>
+
+#if defined(_WIN32)
+#  include <Windows.h>
+#else
+#  include <unistd.h>
+#endif
 
 #define MAX_BALLS 64
 #define HEIGHT    24
@@ -133,8 +138,11 @@ void move_ball(Ball* ball, Box* bounds)
 /* Pause the program for the given number of milliseconds. */
 void delay(long milliseconds)
 {
-    /* This won't work in Windows; would use Sleep() instead. */
+#if defined(_WIN32)
+    Sleep(milliseconds);
+#else
     usleep(milliseconds * 1000);
+#endif
 }
 
 
